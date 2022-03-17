@@ -1,3 +1,10 @@
+# VS Code
+.vscode
+
+# Data files
+/public
+*.xlsx
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
