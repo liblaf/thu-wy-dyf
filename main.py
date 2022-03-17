@@ -26,7 +26,7 @@ def plot_data(data: pd.DataFrame, dir_path: str = "./") -> pd.DataFrame:
     subjects.sort_values(by="服务时长/分钟", ascending=True, inplace=True)
     plt.figure()
     plt.barh(y=subjects.index, width=subjects["服务时长/分钟"])
-    plt.ylabel("服务时长/分钟")
+    plt.xlabel("服务时长/分钟")
     plt.tight_layout()
     plt.savefig(os.path.join(dir_path, "bar.png"))
     plt.close()
