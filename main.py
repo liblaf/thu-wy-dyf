@@ -1,5 +1,7 @@
 import os
 from datetime import datetime
+import shutil
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -111,5 +113,7 @@ def feedback(filepath: str = "wydyf-feedback.xlsx", prefix: str = "./public/"):
 
 
 if __name__ == "__main__":
-    set_password()
-    feedback()
+    PREFIX = "./public/"
+    shutil.rmtree(PREFIX)
+    set_password(prefix=PREFIX)
+    feedback(prefix=PREFIX)
