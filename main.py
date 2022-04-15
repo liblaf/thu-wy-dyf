@@ -46,7 +46,9 @@ def append_statistics(
     lines.append(f"")
     lines.append(f"总答疑 {len(data)} 次 {round( subjects['服务时长/分钟'].sum() / 60, 2)} 小时")
     lines.append(f"")
-    rating = data[["评分—业务能力", "启发程度", "服务态度", "满意程度"]]
+    rating = data[["评分—业务能力", "启发程度", "服务态度", "满意程度"]].copy(deep=True)
+    rating.replace(to_replace="(空)", value=5, inplace=True)
+    rating = rating.astype(dtype=int)
     rating = rating.mean()
     lines.append(f"- 业务能力: {round(rating['评分—业务能力'], 2)} / 5.0")
     lines.append(f"- 启发程度: {round(rating['启发程度'], 2)} / 5.0")
@@ -105,6 +107,7 @@ def feedback(filepath: str = "wydyf-feedback.xlsx", prefix: str = "./public/"):
         f"欢迎在 [liblaf/thu-wy-dyf](https://github.com/liblaf/thu-wy-dyf) 发起 Issue / Pull Request! 我们参考 [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) 提交 commits."
     )
     lines.append(f"")
+    # os.makedirs(name=prefix, exist_ok=True)
     head_md = open(os.path.join(prefix, "head.md"), mode="w")
     head_md.writelines([line + "\n" for line in lines])
 
@@ -114,6 +117,6 @@ def feedback(filepath: str = "wydyf-feedback.xlsx", prefix: str = "./public/"):
 
 if __name__ == "__main__":
     PREFIX = "./public/"
-    shutil.rmtree(PREFIX)
+    shutil.rmtree(PREFIX, ignore_errors=True)
     set_password(prefix=PREFIX)
     feedback(prefix=PREFIX)
